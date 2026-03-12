@@ -1728,9 +1728,8 @@
     };
     try {
       await fetch(SHEET_WEBHOOK_URL, {
-        method:"POST", mode:"no-cors",
-        headers:{"Content-Type":"application/json"},
-        body: JSON.stringify(payload)
+        method: "POST",
+        body: new URLSearchParams({ data: JSON.stringify(payload) })
       });
     } catch(e) { console.warn("Sheet log failed:", e); }
   }
@@ -1748,9 +1747,8 @@
     };
     try {
       await fetch(SHEET_WEBHOOK_URL, {
-        method:"POST", mode:"no-cors",
-        headers:{"Content-Type":"application/json"},
-        body: JSON.stringify(payload)
+        method: "POST",
+        body: new URLSearchParams({ data: JSON.stringify(payload) })
       });
     } catch(e) { console.warn("Sheet registration log failed:", e); }
   }

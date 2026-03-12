@@ -11,7 +11,8 @@
 
 function doPost(e) {
   try {
-    var data = JSON.parse(e.postData.contents);
+    var raw = (e.parameter && e.parameter.data) ? e.parameter.data : e.postData.contents;
+    var data = JSON.parse(raw);
     var ss = SpreadsheetApp.getActiveSpreadsheet();
 
     if (data.event === "registration") {
