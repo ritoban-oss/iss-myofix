@@ -961,12 +961,13 @@
   // ===================== CONFIG (ISS STAFF ONLY) =====================
   // Paste your deployed Google Apps Script Web App URL here.
   // Patients never see or interact with this value.
-  const SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxnb6EzHGjHGpL_cr5PJ1islrRLyS6Ax0OOkV5Qv89slifSRDK3nwGhVz9Qhx9cxh7e/exec"; // << PASTE YOUR APPS SCRIPT URL HERE
+  const SHEET_WEBHOOK_URL = ""; // << PASTE YOUR APPS SCRIPT URL HERE
 
   // ===================== STORAGE KEYS =====================
   const USERS_KEY    = "myofix_users_v1";    // all registered accounts, keyed by email
   const SESSION_KEY  = "myofix_session_v1"; // currently logged-in user email
-  const PROGRESS_KEY = "myofix_prog_v1";    // per-patient progress, keyed by patientId
+  const PROGRESS_KEY  = "myofix_prog_v1";    // per-patient progress, keyed by patientId
+  const SESSLOG_KEY   = "myofix_sesslog_v1";  // per-patient exercise log, keyed by patientId
 
   const ILLUS_URIS = {
     "breathe": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzc1IiBoZWlnaHQ9IjM1MCIgdmlld0JveD0iMCAwIDM3NSAzNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGQ9Ik0xODcuNzQ3IDEyMy4zMzlDMjQ5LjA0OCA4Ny41NDg2IDI3OS40MTMgMTM3Ljg3MyAzMzAuMDQzIDE1OC44M0MzNDAuNDY4IDE2My4xNDIgMzYxLjEzMiAxNjAuNjQ1IDM3Mi44MTkgMTYzLjExN0MzNzQuNzAxIDE2NS4zMzEgMzc0LjA0NiAxNjUuMjg2IDM3NC4yMSAxNjkuMDA5QzM3MC42MzQgMTcxLjQ2MyAzNDQuNzU3IDE2OS4zNzggMzM4LjY2OCAxNjkuMDY2QzMxOC40ODQgMjE1LjQ1OCAyOTQuMDEgMjM2LjM2OSAyNDMuNzY2IDI0Ni4yNUMyMTkuMTc1IDI1MC4wNiAyMDAuMTM2IDI0NS4zNyAxNzYuMzY0IDI0Ny4zNjdDMTI0LjE3OSAyNTEuNzUxIDczLjA5MjkgMjM3LjIxOCA0Ny44OTQ3IDE4Ny42MzhDNDUuMTI0NyAxODIuMTY2IDM5LjMzOTMgMTczLjkwNSAzNS43MDQ1IDE2OC44MjVDMjkuNzU1NiAxNjkuNDU3IDQuMTQ4MTcgMTcxLjgyNiAwLjQxOTg0OCAxNjkuNTYzQy0wLjEyOTQ2NSAxNjYuMzk0IC0wLjI2OTYyNCAxNjYuNTc3IDAuODA1NjI4IDE2My41ODVDMTMuMjA2MSAxNTkuODM2IDMwLjc0OSAxNjMuOTg1IDQ3LjA0MTQgMTU3LjY1NEM4NS43Mzg3IDE0Mi42MjQgMTAwLjQzIDExNi4wNzEgMTQ0LjAwMSAxMTEuNDc5QzE2MS4zNTcgMTEwLjQ3OCAxNzIuOTg2IDExNS42OTMgMTg3Ljc0NyAxMjMuMzM5WiIgZmlsbD0iIzQwNEM2NSIvPgo8cGF0aCBkPSJNMTI0LjcxNyAxNjUuMTM0QzE1NC4yNzUgMTYyLjE5OSAxNTguOTM4IDE3NC4xMjQgMTg1LjgwOCAxNzcuMDc1QzIwMC41NDYgMTc4LjY5NCAyMjAuMzkxIDE2NC43OTMgMjM2LjIyNyAxNjQuNDQ1QzI0OC40MTcgMTY0LjE3NiAyNjAgMTY2LjcwNiAyNzEuOTIxIDE2OS4wODdDMjkzLjUwOCAxNzMuMzk5IDMwNy44OTUgMTczLjcwNSAzMjkuMzMgMTcwLjI1N0MzMTIuMTAzIDIwNS40NTQgMjk5Ljc5NiAyMjAuMjc2IDI2Mi4yMzIgMjM0LjA0OUMyMzEuMDM4IDI0My4wMzcgMjE5Ljg0MiAyMzkuMDY4IDE5MS4wMiAyMzguOTE0QzE2My44OTMgMjM4Ljc2OSAxNDYuNjMxIDI0My4zODcgMTE3Ljc4NiAyMzQuODQ3Qzc3LjgxNDkgMjIzLjAwOCA2Ni43NDY4IDIwNC43ODcgNDcuNjQ5NCAxNzEuMzU3QzgyLjA5MjUgMTc1LjIzOSA5Mi4yODQxIDE3MS41NDEgMTI0LjcxNyAxNjUuMTM0WiIgZmlsbD0iI0ZBRkJGQiIvPgo8cGF0aCBkPSJNMTQxLjY1MiAxMTkuNTY3QzE2MS42ODUgMTE4LjE2MSAxNzEuMzA0IDEyMy4zNDMgMTg4LjEyMiAxMzIuODY4QzI0MS40NCA5Ny43ODM4IDI3NS4wNzcgMTM5LjMyOCAzMjAuMzU1IDE2My44NTRDMzA3Ljg4NCAxNjQuNzc4IDI5Ni4wMDkgMTY1LjEzNyAyODMuNTc0IDE2My4yNTdDMjY1LjM2NSAxNjAuNTA5IDI1Mi43MTkgMTU2LjI2OSAyMzQuMTM2IDE1Ni43OTZDMjE2LjI3NyAxNTkuMDU2IDIwNC45NCAxNjcuMzI5IDE4OS41MjQgMTY5LjEwOUMxNzQuNDk0IDE3MC44NDUgMTU2LjIyNyAxNTcuMjA4IDEzOS4wNjkgMTU2Ljg0MUMxMjEuMDI0IDE1Ni40NTQgMTA5LjAwOSAxNjAuOTcxIDkxLjQwNzggMTYzLjkxOEM3OC4wMzczIDE2Ni4xNTggNjUuOTA1NyAxNjUuMzc4IDUyLjUzNTIgMTY0LjM5NEM2MC4xMjA0IDE2MC4xOTQgNjkuNTE3IDE1NS45MyA3Ni42ODE1IDE1MS4zMTFDOTkuMTA5OCAxMzYuODM4IDExNC4zMDQgMTIzLjY3NyAxNDEuNjUyIDExOS41NjdaIiBmaWxsPSIjRkFGQkZCIi8+CjxwYXRoIGQ9Ik0xNTQuNjkxIDBDMTU3LjEyNCAwLjgyMzg3MiAxNzQuODA2IDIwLjQ1MjIgMTc4Ljc5OCAyNC4yNzQ3TDE3My4zOCAzMC41NjEzTDE1Ny44ODIgMTMuMjAxQzE1Ni43ODYgMjYuNTE0MiAxNTYuNjM0IDMzLjM0MjEgMTU5Ljc4OSA0Ny41MjAxQzE2NS42NzEgNzMuOTQ0OSAxOTQuNjQzIDEwMy4zMzggMjIwLjAzMyA4My45ODY1QzIyMy40NDYgODEuMzg5MyAyMjYuNzcgNjguOTM3IDIzMi4xODkgNjcuMTkwM0MyMzQuNTE1IDY4Ljk2OTQgMjMzLjgxMSA2Ny45Njk1IDIzNC41MzMgNzEuNDQ4NkMyMjAuNzQ2IDEwMy43MjggMTkyLjIwMSAxMDQuMjE1IDE2OS45NCA3OS43NDkxQzE1Mi45IDYxLjAxMTMgMTUwLjQ4NSAzOS41MTY0IDE1MS4xNzEgMTQuNTAxNUMxNDYuODc2IDE5LjQ5OCAxNDIuMjk1IDI2LjAxNTcgMTM2Ljc4OCAyOC41OTFDMTMzLjI1OSAyOC4yODg1IDEzMy41NzkgMjcuNTkwMiAxMzAuNTE0IDI0LjY2QzEzOC41OTcgMTcuMDU1OSAxNDYuOTExIDguMDg1NTYgMTU0LjY5MSAwWiIgZmlsbD0iIzA4QTg5QiIvPgo8cGF0aCBkPSJNMzM5LjY4NSAzNDcuNjg0QzM0NS42NDYgMzQ3LjAzNSAzNTcuNDUgMzQ2LjAxOCAzNjIuNjI4IDM0OC44ODlDMzU2LjYyIDM0OS45MjggMzQ1LjIyNSAzNTAuNjc1IDMzOS42ODUgMzQ3LjY4NFoiIGZpbGw9IiNERkU5RjIiLz4KPC9zdmc+Cg==",
@@ -1090,6 +1091,41 @@
     const all = getAllProgress();
     all[user.patientId] = progress;
     localStorage.setItem(PROGRESS_KEY, JSON.stringify(all));
+  }
+
+
+  // ===================== SESSION EXERCISE LOG =====================
+  // Tracks which exercises were completed today, rounds done, and time spent.
+  // Structure: { [patientId]: { [dateKey]: { [exId]: { name, roundsDone, roundsTotal, timeSpent } } } }
+
+  function getAllSessionLogs() {
+    try { return JSON.parse(localStorage.getItem(SESSLOG_KEY)) || {}; } catch { return {}; }
+  }
+
+  function getTodayLog() {
+    const user = getCurrentUser();
+    if (!user) return {};
+    const todayKey = new Date().toISOString().split("T")[0];
+    const all = getAllSessionLogs();
+    return (all[user.patientId] && all[user.patientId][todayKey]) || {};
+  }
+
+  function logExerciseComplete(ex, roundsDone) {
+    const user = getCurrentUser();
+    if (!user) return;
+    const todayKey = new Date().toISOString().split("T")[0];
+    const all = getAllSessionLogs();
+    if (!all[user.patientId]) all[user.patientId] = {};
+    if (!all[user.patientId][todayKey]) all[user.patientId][todayKey] = {};
+    // Time spent: rounds done × hold time per round (seconds)
+    const timeSpent = roundsDone * ex.holdTime;
+    all[user.patientId][todayKey][ex.id] = {
+      name: ex.name,
+      roundsDone: roundsDone,
+      roundsTotal: ex.reps,
+      timeSpent: timeSpent
+    };
+    localStorage.setItem(SESSLOG_KEY, JSON.stringify(all));
   }
 
   // ===================== STATE =====================
@@ -1635,7 +1671,9 @@
   }
 
   function finishExercise() {
-    const name = exState.exercise ? exState.exercise.name : "Exercise";
+    const ex = exState.exercise;
+    if (ex) logExerciseComplete(ex, exState.currentRound);
+    const name = ex ? ex.name : "Exercise";
     closeModal();
     showToast("success", name + " done!", "ph-check-circle");
   }
@@ -1713,6 +1751,17 @@
   // ===================== SHEETS LOGGING =====================
   async function logSessionToSheets(dateKey, user) {
     if (!SHEET_WEBHOOK_URL) return;
+    // Build per-exercise summary from today's session log
+    const allLogs = getAllSessionLogs();
+    const todayLog = (allLogs[user.patientId] && allLogs[user.patientId][dateKey]) || {};
+    const exerciseData = {};
+    EXERCISES.forEach(ex => {
+      const entry = todayLog[ex.id];
+      exerciseData["ex_" + ex.id] = entry
+        ? entry.roundsDone + "/" + entry.roundsTotal + " · " + entry.timeSpent + "s"
+        : "";
+    });
+    const exercisesCompleted = Object.values(todayLog).length;
     const payload = {
       event: "session",
       timestamp: new Date().toISOString(),
@@ -1724,7 +1773,9 @@
       email: user.email,
       totalDays: progress.totalDays,
       streak: getStreak(),
-      milestonesAchieved: MILESTONES.filter(m => progress.totalDays >= m).length
+      milestonesAchieved: MILESTONES.filter(m => progress.totalDays >= m).length,
+      exercisesCompleted: exercisesCompleted + "/6",
+      ...exerciseData
     };
     try {
       await fetch(SHEET_WEBHOOK_URL, {
