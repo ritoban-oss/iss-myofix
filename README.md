@@ -1,7 +1,7 @@
 # MyoFix
 
 **Myofunctional Therapy Program for Obstructive Sleep Apnea**  
-Developed for the [Institute of Sleep Science, Kolkata](https://www.instituteofsleepcience.com)
+Developed for the Institute of Sleep Science, Kolkata.
 
 ---
 
